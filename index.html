@@ -5,27 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments & Reports | Aplicația pentru salonul tău</title>
-    <!-- Fonturi moderne Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
-    <!-- Elemente decorative de fundal (Blobs) -->
-    <div class="blob-bg bg-blob-1"></div>
-    <div class="blob-bg bg-blob-2"></div>
 
     <!-- Header -->
     <header>
         <div class="container nav-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="4" ry="4"></rect>
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
@@ -40,10 +35,8 @@
     <section class="hero">
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="subtitle-badge">Noua versiune este aici ✨</div>
-                <h1>Ține toate programările și banii salonului într-o singură aplicație</h1>
-                <p>Aplicația creată special pentru saloanele de beauty și serviciile pe bază de programări. Preia
-                    controlul afacerii tale: de la calendar și clienți, până la profit și încasări.</p>
+                <h1>Organizează-ți programările într-o aplicație <span class="highlight-text">elegantă</span></h1>
+                <p class="hero-desc">Creată special pentru <strong class="dynamic-text">saloanele de beauty</strong>. Preia controlul afacerii tale: de la calendar și clienți, până la profit real.</p>
 
                 <div class="hero-questions">
                     <p class="hero-questions-intro">Știi exact cum stai cu afacerea ta, în cifre?</p>
@@ -65,8 +58,8 @@
                         În curând pe iPhone
                     </button>
                     <div class="badge">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                            stroke-width="2.5" style="margin-right: 6px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2" style="margin-right: 6px;">
                             <circle cx="12" cy="12" r="10"></circle>
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
@@ -77,11 +70,10 @@
                 <p class="device-availability">Funcționează pe <strong>Android</strong> (disponibilă acum) și pe <strong>iPhone, iPad și Mac</strong> (versiunea iOS este în lucru).</p>
             </div>
 
-            <div class="iphone-mockup float-animation">
-                <div class="mockup-glare"></div>
+            <div class="iphone-mockup">
                 <div class="screen">
-                    <!-- Am pus un placeholder până apar imginile clientului -->
-                    <div class="placeholder-img" style="display:flex; height:100%; width:100%; align-items:center; justify-content:center; background:#0f172a; color:#fff; font-family:'Outfit'; text-align:center; padding: 2rem;">Screenshot App<br>Calendar</div>
+                    <img src="assets/approintments.jpeg" alt="Screenshot aplicație - Calendar programări"
+                        class="iphone-screenshot">
                 </div>
             </div>
         </div>
@@ -92,26 +84,22 @@
         <div class="container">
             <h2 class="section-title">Cum te ajută aplicația zi de zi</h2>
             <p class="section-subtitle">Tot ce ai nevoie, structurat intuitiv și ușor de accesat chiar și când ești cu
-                un client. Te conectezi rapid prin <strong>contul Google</strong>.</p>
+                un client. Te conectezi rapid în aplicație prin <strong>login with Google</strong>, fără parole de ținut minte.</p>
 
             <div class="features-questions">
-                <div class="icon-circle">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="features-questions-intro">La ce te mai ajută concret Appointments &amp; Reports?</p>
-                    <ul>
-                        <li>Mesaje de confirmare și reminder ușor de personalizat prin SMS sau WhatsApp.</li>
-                        <li>Reminder automat când este ziua clientului.</li>
-                        <li>Concedii și zile libere (CO) setate clar.</li>
-                        <li>Remindere clare în aplicație pentru programările de azi și de mâine.</li>
-                        <li>Intervale de tip „time-off” pe care le blochezi rapid.</li>
-                        <li>Linkurile tale de social media trimise cu un singur tap.</li>
-                        <li>Lista ta de prețuri partajată instant.</li>
-                    </ul>
-                </div>
+                <p class="features-questions-intro">La ce te mai ajută concret Appointments &amp; Reports?</p>
+                <ul>
+                    <li>Mesaje de confirmare și reminder gata pregătite, ușor de personalizat și trimis prin SMS sau
+                        WhatsApp.</li>
+                    <li>Reminder automat când este ziua clientului, ca să îi poți trimite un mesaj personal.</li>
+                    <li>Concedii și zile libere (CO) setate clar, ca să nu mai programezi din greșeală clienți în zilele
+                        în care nu lucrezi.</li>
+                    <li>Remindere clare în aplicație pentru programările de azi și de mâine.</li>
+                    <li>Intervale de tip „time-off” pe care le blochezi rapid, ca să ai timp pentru ce ai tu nevoie.
+                    </li>
+                    <li>Linkurile tale de social media trimise clienților cu un singur tap.</li>
+                    <li>Lista ta de prețuri partajată instant, fără să mai cauți prin notițe sau poze vechi.</li>
+                </ul>
             </div>
 
             <div class="features-grid">
@@ -128,7 +116,7 @@
                     </div>
                     <h3>Calendar clar de programări</h3>
                     <p>Vezi pe zile cine vine, ora și serviciul. Aplicația îți sugerează automat primul interval liber,
-                        te avertizează la suprapuneri și te ajută cu concediile.</p>
+                        te avertizează la suprapuneri și îți permite să setezi zile libere sau concedii recurente.</p>
                 </div>
 
                 <!-- Feature 2 -->
@@ -142,8 +130,9 @@
                             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
                     </div>
-                    <h3>Istoric complet clienți</h3>
-                    <p>Toate datele de contact într-un singur loc. Adaugă note despre preferințe sau alergii și marchează clienții problematici.</p>
+                    <h3>Clienți organizați, istoric complet</h3>
+                    <p>Toate datele de contact și istoricul într-un singur loc. Adaugă note despre preferințe sau
+                        alergii, vizualizează vizitele trecute și marchează clienții problematici pentru viitor.</p>
                 </div>
 
                 <!-- Feature 3 -->
@@ -155,8 +144,9 @@
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                         </svg>
                     </div>
-                    <h3>Banii, mereu la vedere</h3>
-                    <p>Adaugi încasările și cheltuielile curente. Aplicația calculează instant profitul la finalul zilei, clar și precis.</p>
+                    <h3>Banii salonului, mereu la vedere</h3>
+                    <p>Adaugi cu un tap încasările din programări și cheltuielile curente (consumabile, chirie).
+                        Aplicația îți calculează instant profitul la finalul zilei, fără caiete uitate prin sertare.</p>
                 </div>
 
                 <!-- Feature 4 -->
@@ -165,71 +155,53 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"></path>
-                            <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
                         </svg>
                     </div>
-                    <h3>Mesaje predefinite</h3>
-                    <p>Trimite confirmări de programare prin WhatsApp cu un click. Ai texte gata făcute cu inserție automată a datei și linkurilor.</p>
+                    <h3>Mesaje rapide și predefinite</h3>
+                    <p>Trimite confirmări de programare prin SMS sau WhatsApp cu un singur click. Ai texte gata făcute
+                        în care poți insera rapid automat ora, data și linkurile de social media.</p>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Secțiune dispozitive Apple -->
     <section class="section-padding bg-surface devices-section">
         <div class="container devices-grid">
             <div class="devices-text">
-                <div class="subtitle-badge" style="background: var(--primary-light); color: white; border: none; margin-bottom: 1.5rem;">Ecosistem Multi-Platformă</div>
-                <h2 class="section-title" style="text-align: left;">Android acum. Ecosistemul Apple în curând.</h2>
-                <p class="section-subtitle" style="text-align: left; margin-left: 0;">Aplicația funcționează deja perfect pe dispozitivele cu Android. Varianta pentru iPhone, iPad și Mac este în dezvoltare.</p>
-                <ul class="check-list-modern">
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <p><strong>Folosești acum aplicația pe Android</strong>, cu toate funcționalitățile incluse.</p>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <p><strong>Sincronizare cloud</strong> sigură, ca să ai datele oriunde mergi.</p>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <p><strong>Experiență nativă iOS/macOS</strong> în lucru, pentru o trecere fără efort atunci când va fi gata.</p>
-                    </li>
+                <h2 class="section-title">Android disponibilă acum. Versiunea pentru iPhone, iPad și Mac este în lucru.</h2>
+                <p class="section-subtitle">Aplicația funcționează deja pe dispozitivele tale cu Android, iar varianta pentru ecosistemul Apple (iPhone, iPad și Mac) este în dezvoltare.</p>
+                <ul class="check-list">
+                    <li>Folosești acum aplicația pe telefonul tău Android, cu toate funcționalitățile disponibile.</li>
+                    <li>Backup și sincronizare în cloud, astfel încât să ai programările și rapoartele oriunde.</li>
+                    <li>Lucrăm la experiența nativă pentru iPhone, iPad și Mac, ca să poți continua totul pe dispozitivele tale Apple.</li>
                 </ul>
             </div>
-            <div class="devices-mockup float-animation" style="animation-delay: 1s;">
+            <div class="devices-mockup">
                 <div class="tablet-mockup">
-                    <div class="mockup-glare"></div>
                     <div class="tablet-screen">
-                        <div class="placeholder-img" style="display:flex; height:100%; width:100%; align-items:center; justify-content:center; background:#0f172a; color:#fff; font-family:'Outfit'; text-align:center; padding: 2rem; font-size: 1.5rem;">Screenshot Mac & iPad</div>
+                        <img src="assets/tablet&amp;mac.png" alt="Aplicația pe iPad și Mac" class="tablet-screenshot">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
     <!-- Pentru cine este -->
-    <section class="section-padding bg-gradient-subtle">
-        <div class="container text-center">
+    <section class="section-padding bg-light">
+        <div class="container">
             <h2 class="section-title">Pentru cine este aplicația?</h2>
-            <p class="section-subtitle">Perfectă pentru antreprenorii mici care fac totul singuri și au nevoie de claritate și stil.</p>
+            <p class="section-subtitle">Perfectă pentru freelanceri și antreprenorii mici care fac totul singuri și au
+                nevoie de claritate, fără complicații inutile.</p>
 
             <div class="tags-container">
-                <span class="tag">
-                    <span class="tag-icon">💅</span> Salon de înfrumusețare
-                </span>
-                <span class="tag">
-                    <span class="tag-icon">✂️</span> Coafor & Frizerie
-                </span>
-                <span class="tag">
-                    <span class="tag-icon">✨</span> Manichiură
-                </span>
-                <span class="tag">
-                    <span class="tag-icon">💆</span> Masaj & Terapii
-                </span>
-                <span class="tag">
-                    <span class="tag-icon">💈</span> Barber Shop
-                </span>
+                <span class="tag">Salon de înfrumusețare</span>
+                <span class="tag">Coafor & Frizerie</span>
+                <span class="tag">Manichiură & Pedichiură</span>
+                <span class="tag">Masaj & Terapii</span>
+                <span class="tag">Barber Shop</span>
             </div>
         </div>
     </section>
@@ -238,81 +210,70 @@
     <section class="section-padding bg-surface">
         <div class="container">
             <div class="problem-card">
-                <div class="problem-content">
-                    <h2>Simți uneori că pierzi controlul afacerii tale?</h2>
-                    <ul class="problem-list">
-                        <li>Ai programările scrise haotic într-o agendă de hârtie.</li>
-                        <li>Clienții mai uită (no-show) și îți blochează timpul.</li>
-                        <li>La final de lună nu știi exact câți bani reali ai făcut.</li>
-                    </ul>
-                </div>
+                <h2>Simți uneori că pierzi controlul afacerii tale?</h2>
+                <ul class="problem-list">
+                    <li>Ai programările scrise haotic într-o agendă de hârtie sau rătăcite prin mesaje.</li>
+                    <li>Ai clienți care uită de programare (no-show) și îți blochează timpul.</li>
+                    <li>La final de lună e greu să vezi câți bani reali ai făcut și pe ce s-au dus cheltuielile.</li>
+                    <li>Nu ai claritate despre cine sunt clienții tăi fideli și cine anulează mereu în ultimul moment.
+                    </li>
+                </ul>
                 <div class="solution-highlight">
-                    <div class="solution-icon">✨</div>
-                    <p>Appointments & Reports adună toate aceste informații frumos într-un singur loc. Ai agenda și contabilitatea salonului în propriul buzunar.</p>
+                    Appointments & Reports adună toate aceste informații într-un singur loc. Ai agenda și contabilitatea
+                    salonului în propriul buzunar.
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Reports & Security -->
-    <section class="section-padding bg-alt">
+    <section class="section-padding bg-surface">
         <div class="container">
 
             <!-- Split: Rapoarte -->
             <div class="split-section">
-                <div class="split-content">
-                    <div class="subtitle-badge">Insights & Analytics</div>
-                    <h2 style="margin-bottom: 1.5rem; font-size: 2.25rem;">Rapoarte vizuale pentru decizii mai bune</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">Aplicația funcționează ca un <strong>mic contabil vizual</strong> pentru business-ul tău.</p>
-                    <ul class="check-list-modern">
-                        <li>
-                            <div class="check-icon">✓</div>
-                            <p>Vezi pe luni și ani performanța, încasările și cheltuielile.</p>
-                        </li>
-                        <li>
-                            <div class="check-icon">✓</div>
-                            <p>Identifică clienții de top care îți aduc cea mai mare valoare.</p>
-                        </li>
-                        <li>
-                            <div class="check-icon">✓</div>
-                            <p>Află instant câți clienți au anulat și câți bani ai fi putut încasa.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="iphone-mockup float-animation" style="animation-duration: 5s;">
-                    <div class="mockup-glare"></div>
+                <div class="iphone-mockup iphone-mockup-report">
                     <div class="screen">
-                        <div class="placeholder-img" style="display:flex; height:100%; width:100%; align-items:center; justify-content:center; background:#0f172a; color:#fff; font-family:'Outfit'; text-align:center;">Screenshot<br>Raport</div>
+                        <img src="assets/report.jpeg" alt="Screenshot aplicație - Rapoarte financiare lunare"
+                            class="iphone-screenshot">
                     </div>
+                </div>
+                <div class="split-content">
+                    <h2 style="margin-bottom: 1rem; font-size: 2rem;">Rapoarte vizuale pentru decizii mai bune</h2>
+                    <p>Aplicația nu e doar o agendă digitală, ci funcționează ca un <strong>mic contabil vizual</strong>
+                        pentru business-ul tău.</p>
+                    <ul class="check-list">
+                        <li>Vezi pe luni și ani: câți bani au intrat (estimat vs realizat), ce ai cheltuit și care este
+                            profitul curat.</li>
+                        <li>Monitorizează câte minute și zile ai lucrat efectiv.</li>
+                        <li>Identifică din rapoarte clienții de top care îți aduc cea mai mare valoare.</li>
+                        <li>Află rapid câți clienți au anulat sau nu s-au prezentat și câți bani ai pierdut din această
+                            cauză.</li>
+                    </ul>
                 </div>
             </div>
 
             <!-- Split: Siguranță -->
-            <div class="split-section reverse mt-6">
-                <div class="split-content">
-                    <div class="subtitle-badge" style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0;">Privacy & Security</div>
-                    <h2 style="margin-bottom: 1.5rem; font-size: 2.25rem;">Siguranță absolută pentru datele tale</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">Agenda și baza ta de clienți sunt inima afacerii. Totul este conceput pentru a fi privat și securizat.</p>
-                    <ul class="check-list-modern">
-                        <li>
-                            <div class="check-icon" style="background: #10b981;">✓</div>
-                            <p><strong>Protecție Face ID:</strong> Nimeni nu îți poate accesa finanțele dacă îți lași telefonul pe masă.</p>
-                        </li>
-                        <li>
-                            <div class="check-icon" style="background: #10b981;">✓</div>
-                            <p><strong>Backup & Export:</strong> Sincronizare automată sau export ca JSON sigur pentru liniștea ta.</p>
-                        </li>
-                        <li>
-                            <div class="check-icon" style="background: #10b981;">✓</div>
-                            <p><strong>Adaptabil:</strong> Suport pentru română, engleză, spaniolă, portugheză și monede precum RON, EUR, GBP, USD.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="iphone-mockup float-animation" style="animation-delay: 2s;">
-                    <div class="mockup-glare"></div>
+            <div class="split-section">
+                <div class="iphone-mockup iphone-mockup-settings">
                     <div class="screen">
-                        <div class="placeholder-img" style="display:flex; height:100%; width:100%; align-items:center; justify-content:center; background:#0f172a; color:#fff; font-family:'Outfit'; text-align:center;">Screenshot<br>Securitate</div>
+                        <img src="assets/settings.jpeg" alt="Screenshot aplicație - Setări și Face ID"
+                            class="iphone-screenshot">
                     </div>
+                </div>
+                <div class="split-content">
+                    <h2 style="margin-bottom: 1rem; font-size: 2rem;">Siguranță absolută și control pe datele tale</h2>
+                    <p>Înțelegem cât de sensibile sunt datele din agenda și portofoliul tău de clienți. Totul este
+                        conceput pentru a-ți oferi liniște deplină.</p>
+                    <ul class="check-list">
+                        <li><strong>Protecție Face ID:</strong> Nimeni nu îți poate accesa rapoartele financiare sau
+                            lista de clienți dacă îți lași telefonul pe masă.</li>
+                        <li><strong>Backup simplu și sincronizare cloud:</strong> Aplicația oferă backup și sincronizare în cloud. Poți exporta sau
+                            importa rapid toate datele din interiorul aplicației sub formă de fișier JSON sigur.</li>
+                        <li><strong>Complet adaptabil:</strong> Disponibilă în română, engleză, spaniolă, portugheză
+                            (Brazilia) și franceză, cu suport pentru principalele monede: RON, EUR, GBP, USD, BRL, CHF
+                            și HUF.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -320,97 +281,106 @@
     </section>
 
     <!-- Website Offer -->
-    <section class="section-padding premium-card-section">
+    <section class="section-padding">
         <div class="container">
             <div class="website-offer">
-                <div class="offer-bg-elements"></div>
-                <div class="offer-content">
-                    <h2 style="font-size: 2.5rem;">Nu ai încă un website pentru afacerea ta? Te ajut eu!</h2>
-                    <p class="offer-desc">Aplicația rezolvă organizarea internă, dar o afacere de top are nevoie și de o <strong>pagină web de prezentare curată și modernă</strong> (similară cu aceasta!). Un spațiu online cu serviciile, pozele și linkurile tale.</p>
-                    
-                    <div class="offer-divider"></div>
-                    
-                    <p class="website-examples-intro">Câteva proiecte de succes:</p>
-                    <div class="examples-grid">
-                        <a href="https://www.silviaskinstudio.co.uk" target="_blank" class="example-link-card">
-                            <span class="icon">✨</span>
-                            <div>
-                                <strong>Silvia Skin Studio</strong>
-                                <span>skincare &amp; masaj, UK</span>
-                            </div>
-                        </a>
-                        <a href="https://popasuldrumetuluibucovina.ro" target="_blank" class="example-link-card">
-                            <span class="icon">🍽️</span>
-                            <div>
-                                <strong>Popasul Drumețului</strong>
-                                <span>restaurant tradițional</span>
-                            </div>
-                        </a>
-                    </div>
+                <h2>Nu ai încă un website pentru afacerea ta? Te ajut eu!</h2>
+                <p>Aplicația rezolvă organizarea internă, dar pe lângă asta, te pot ajuta să îți construiești și o
+                    <strong>pagină web simplă, de prezentare</strong>. Un spațiu online cu programul tău, serviciile,
+                    poze de la fața locului, link-uri spre Instagram/Facebook și butoane rapide de contact.
+                </p>
+                <p style="margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">O prezență modernă, curată, care să
+                    îi convingă pe clienți chiar înainte să îți treacă pragul.</p>
 
-                    <a href="mailto:c_mihail@icloud.com" class="btn btn-bounce" style="background: white; color: var(--primary); font-size: 1.1rem; padding: 1rem 2rem; margin-top: 2rem;">
-                        ✉️ Scrie-mi și vedem ce ai nevoie
-                    </a>
-                </div>
+                <p class="website-examples-intro">Câteva exemple de site-uri pe care le-am realizat:</p>
+                <ul class="website-examples-list">
+                    <li><a href="https://www.silviaskinstudio.co.uk" target="_blank" rel="noopener noreferrer">Silvia
+                            Skin Studio</a> – skincare &amp; masaj, UK</li>
+                    <li><a href="https://popasuldrumetuluibucovina.ro" target="_blank" rel="noopener noreferrer">Popasul
+                            Drumețului</a> – restaurant tradițional, Bucovina</li>
+                </ul>
+
+                <a href="mailto:c_mihail@icloud.com" class="btn btn-secondary">
+                    Scrie-mi și vedem împreună ce ai nevoie
+                </a>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <section class="section-padding bg-surface" id="faq">
+    <section class="section-padding bg-alt">
         <div class="container">
-            <h2 class="section-title text-center">Întrebări frecvente</h2>
-            <p class="section-subtitle text-center" style="margin-bottom: 3.5rem;">Tot ce trebuie să știi despre platformă.</p>
+            <h2 class="section-title">Întrebări frecvente</h2>
+            <p class="section-subtitle" style="margin-bottom: 3rem;">Află mai multe detalii despre cum funcționează
+                Appointments & Reports.</p>
 
             <div class="faq-container">
+
                 <div class="faq-item">
                     <button class="faq-question">De pe ce dispozitive pot folosi aplicația?</button>
                     <div class="faq-answer">
-                        <p>În acest moment, aplicația este disponibilă pe dispozitive cu <strong>Android</strong>. Versiunea nativă de <strong>iPhone, iPad și Mac</strong> este în lucru și se va lansa în curând.</p>
+                        <p>În acest moment, aplicația este disponibilă pe dispozitive cu <strong>Android</strong>. Lucrăm la versiunea pentru
+                            <strong>iPhone, iPad și Mac</strong>, care va fi lansată în perioada următoare.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question">Am nevoie de internet permanent?</button>
                     <div class="faq-answer">
-                        <p>Aplicația este extrem de fluidă, folosește sincronizare inteligentă în fundal. Funcționează impecabil și poți vizualiza date, deși pentru sincronizare e nevoie ocazional de internet.</p>
+                        <p>Nu. Appointments & Reports este o aplicație nativă, ceea ce înseamnă că toate datele sunt
+                            stocate local, direct pe dispozitivul tău. Poți vizualiza, adăuga sau modifica programări și
+                            rapoarte chiar și fără conexiune la internet.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question">Pentru ce tip de business este potrivită aplicația?</button>
                     <div class="faq-answer">
-                        <p>Este gândită special pentru saloane de beauty (coafor, frizerie, manichiură), cabinete de masaj sau terapie, make-up artiști și barber shop-uri. Orice business care se bazează pe servicii per oră/client.</p>
+                        <p>Este gândită special pentru orice afacere care funcționează strict pe bază de programări cu
+                            durata bine definită: saloane de beauty (coafor, frizerie, manichiură), cabinete de masaj
+                            sau terapie, make-up artiști și barber shop-uri.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question">Pot să export datele mele?</button>
                     <div class="faq-answer">
-                        <p>Da, desigur! Oricând dorești poți exporta un fișier JSON cu toate datele tale. De asemenea poți importa date la schimbarea telefonului.</p>
+                        <p>Da, desigur! Din meniul aplicației poți face oricând un export complet al tuturor datelor
+                            tale sub formă de fișier JSON. De asemenea, poți folosi funcția de import dacă îți schimbi
+                            telefonul.</p>
                     </div>
                 </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Pot să țin evidența mai multor saloane simultan?</button>
+                    <div class="faq-answer">
+                        <p>Structura actuală a rapoartelor financiare și a calendarului este orientată și optimizată
+                            pentru gestionarea unui singur salon sau a unui singur business de tip freelancer, pentru a
+                            păstra totul cât mai simplu și clar posibil.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Final CTA -->
     <section class="final-cta">
-        <div class="final-cta-bg"></div>
-        <div class="container" style="position: relative; z-index: 2;">
-            <h2>Mai puțin haos. <span class="text-gradient">Mai multă claritate.</span></h2>
-            <p>Ridică standardul afacerii tale. Controlează-ți programările, ușor și estetic.</p>
+        <div class="container">
+            <h2>Mai puțin haos în programări și bani.<br>Mai multă claritate.</h2>
+            <p>Descarcă Appointments & Reports și fă-ți viața mai ușoară la salon.</p>
 
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 2rem;">
-                <button class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.15rem; box-shadow: 0 10px 30px rgba(76, 29, 149, 0.4);" disabled>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <button class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.125rem;" disabled>
                     <svg viewBox="0 0 384 512" width="20" height="20">
-                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+                        <path
+                            d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
                     </svg>
-                    Apare în curând pe iOS
+                    În curând pe iPhone
                 </button>
-                <div class="badge" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); backdrop-filter: blur(10px);">
-                    <span style="display:inline-block; width:8px; height:8px; background:#10b981; border-radius:50%; margin-right:8px;"></span>
-                    Disponibilă pe Android acum
+                <div class="badge"
+                    style="background: transparent; border: none; font-size: 0.9rem; color: var(--text-muted);">
+                    Android – lansată
                 </div>
             </div>
         </div>
@@ -418,42 +388,17 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container footer-content">
-            <div class="logo-icon blur-logo" style="width:24px; height:24px;">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="4" ry="4"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-            </div>
+        <div class="container">
             <p>
-                &copy; 2026 Appointments & Reports. Construim cu atenție la detalii.
-                <span class="separator">&bull;</span>
-                <a href="privacy-policy-android.html" class="footer-link">Politica de confidențialitate</a>
+                &copy; 2026 Appointments & Reports. Toate drepturile rezervate.
+                &nbsp;|&nbsp;
+                <a href="privacy-policy-android.html">Privacy Policy – Android</a>
             </p>
         </div>
     </footer>
 
     <!-- Script pentru FAQ (Accordion) -->
-    <script>
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.closest('.faq-item');
-                const wasActive = item.classList.contains('active');
-                
-                // Închide toate celelalte
-                document.querySelectorAll('.faq-item').forEach(other => {
-                    other.classList.remove('active');
-                });
-                
-                // Deschide pe cel apăsat dacă nu era deja deschis
-                if (!wasActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
