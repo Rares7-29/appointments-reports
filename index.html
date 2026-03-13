@@ -1,420 +1,1189 @@
 <!DOCTYPE html>
 <html lang="ro">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments & Reports | Aplicația pentru salonul tău</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments & Reports | Aplicația pentru salonul tău</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & ROOT ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --primary: #6d28d9;
+      --primary-light: #8b5cf6;
+      --accent: #f43f5e;
+      --accent-hover: #e11d48;
+      --accent-light: #ffe4e6;
+
+      --bg-color: #faf5ff;
+      --bg-alt: #fff1f2;
+      --surface: #ffffff;
+
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+
+      --border: #f3e8ff;
+      --border-light: #fff5f5;
+
+      --radius-sm: 16px;
+      --radius-md: 28px;
+      --radius-lg: 42px;
+
+      --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow-soft: 0 15px 40px rgba(74,59,60,0.06);
+      --shadow-hover: 0 25px 50px rgba(74,59,60,0.12);
+
+      /* Spacing scale */
+      --sp-xs: 0.5rem;
+      --sp-sm: 1rem;
+      --sp-md: 2rem;
+      --sp-lg: 4rem;
+      --sp-xl: 7rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    ::selection { background: var(--accent-light); color: var(--primary); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-active { opacity: 1; transform: translateY(0); }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    @media (min-width: 640px) { .container { padding: 0 2rem; } }
+
+    .section-padding { padding: clamp(4rem, 8vw, 8rem) 0; }
+
+    /* ===== BACKGROUNDS ===== */
+    .bg-light   { background-color: var(--bg-color); }
+    .bg-surface { background-color: var(--bg-alt); }
+    .bg-alt     { background-color: var(--bg-alt); }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 3rem auto;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .btn svg { flex-shrink: 0; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      box-shadow: 0 8px 25px rgba(124,58,237,0.25);
+    }
+    .btn-primary:not([disabled]):hover {
+      transform: translateY(-4px);
+      background: linear-gradient(135deg, var(--accent), #fb7185);
+      box-shadow: 0 15px 30px rgba(244,63,94,0.4);
+    }
+    .btn-primary[disabled] {
+      opacity: 0.55;
+      background: var(--border);
+      color: var(--text-muted);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.4rem;
+      background-color: var(--surface);
+      color: var(--accent-hover);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      cursor: default;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: rgba(250,245,255,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(74,59,60,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.45rem);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--accent-light);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-hover);
+      border: 1px solid rgba(217,141,131,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: clamp(4rem, 8vw, 8rem) 0 clamp(5rem, 10vw, 10rem);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f8faff, var(--bg-color));
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: -5%;
+      width: min(600px, 80vw); height: min(600px, 80vw);
+      background: radial-gradient(circle, rgba(124,58,237,0.13) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: drift 15s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%; right: -5%;
+      width: min(600px, 80vw); height: min(600px, 80vw);
+      background: radial-gradient(circle, rgba(244,63,94,0.13) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: drift-reverse 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes drift { 100% { transform: translate(40px, 40px) scale(1.08); } }
+    @keyframes drift-reverse { 100% { transform: translate(-40px, -40px) scale(1.08); } }
+
+    .hero-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 900px) {
+      .hero-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4rem;
+      }
+      .hero-content {
+        text-align: left;
+        flex: 1.2;
+      }
+      .btn-group { flex-wrap: nowrap; }
+      .hero .iphone-mockup { margin: 0 0 0 auto; }
+    }
+
+    .hero-content { text-align: center; max-width: 680px; }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .highlight-text {
+      font-style: italic;
+      color: var(--accent-hover);
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .dynamic-text {
+      color: var(--primary);
+      font-weight: 600;
+      position: relative;
+    }
+    .dynamic-text::after {
+      content: "|";
+      position: absolute;
+      right: -8px;
+      color: var(--accent);
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Hero question card */
+    .hero-questions {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border-radius: 10px 50px 10px 50px;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      text-align: left;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-light);
+    }
+
+    .hero-questions-intro {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--primary);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-style: italic;
+    }
+
+    .hero-questions li {
+      position: relative;
+      padding-left: 2.25rem;
+      margin-bottom: 0.9rem;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+    }
+    .hero-questions li::before {
+      content: "—";
+      position: absolute;
+      left: 0; top: 2px;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .hero-questions-note {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--primary-light);
+      font-weight: 600;
+      margin: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .device-availability {
+      margin-top: 1.5rem;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ===== IPHONE MOCKUP ===== */
+    .iphone-mockup {
+      width: clamp(220px, 35vw, 300px);
+      height: clamp(450px, 72vw, 620px);
+      padding: 10px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      position: relative;
+      box-shadow: 0 40px 90px -10px rgba(124,58,237,0.38), inset 0 0 0 1px var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .iphone-mockup::before {
+      content: "";
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 28px;
+      background-color: var(--bg-alt);
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+      z-index: 2;
+    }
+
+    .iphone-mockup .screen {
+      width: 100%; height: 100%;
+      border-radius: 38px;
+      overflow: hidden;
+      background: var(--bg-alt);
+    }
+
+    .iphone-screenshot {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .iphone-mockup-report,
+    .iphone-mockup-settings {
+      width: clamp(180px, 28vw, 260px);
+      height: clamp(370px, 58vw, 530px);
+      margin: 0 auto;
+    }
+
+    /* ===== FEATURES SECTION ===== */
+    .features-questions {
+      max-width: 950px;
+      margin: 0 auto clamp(3rem, 6vw, 5rem);
+      border-radius: 50px 10px 50px 10px;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-light);
+    }
+
+    .features-questions-intro {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .features-questions li {
+      position: relative;
+      padding-left: 2.25rem;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+    }
+    .features-questions li::before {
+      content: "•";
+      position: absolute;
+      left: 0; top: -4px;
+      color: var(--primary-light);
+      font-size: 1.8rem;
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 640px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .feature-card {
+      background: var(--surface);
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(217,141,131,0.35);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-6px);
+    }
+
+    .feature-icon {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, var(--accent-light), #fff);
+      color: var(--accent);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 8px 18px rgba(244,63,94,0.1);
+      position: relative;
+    }
+    .feature-icon::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 18px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    .feature-icon svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 1.5; }
+
+    .feature-card h3 {
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      margin-bottom: 1rem;
+    }
+    .feature-card p { font-size: clamp(0.9rem, 1.8vw, 1.05rem); margin-bottom: 0; }
+
+    /* ===== DEVICES SECTION ===== */
+    .devices-section {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .devices-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .devices-grid { grid-template-columns: 1fr 1.3fr; gap: 5rem; }
+    }
+
+    .tablet-mockup {
+      width: 100%; max-width: 750px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      border-radius: 32px;
+      padding: 12px;
+      box-shadow: 0 30px 70px -15px rgba(244,63,94,0.28);
+    }
+    .tablet-screen {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--bg-alt);
+    }
+    .tablet-screenshot { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ===== TAGS ===== */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .tag {
+      background-color: var(--surface);
+      padding: 0.7rem 1.75rem;
+      border-radius: 5px 26px 5px 26px;
+      font-weight: 500;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    .tag:hover {
+      transform: translateY(-4px) scale(1.02);
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      border-color: transparent;
+      box-shadow: 0 10px 20px rgba(244,63,94,0.3);
+    }
+
+    /* ===== PROBLEM CARD ===== */
+    .problem-card {
+      border-radius: var(--radius-md);
+      padding: clamp(2.5rem, 5vw, 4.5rem);
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-light);
+    }
+    .problem-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--primary-light));
+    }
+    .problem-card h2 { font-size: clamp(1.6rem, 4vw, 2.8rem); }
+
+    .problem-list { margin-top: 2.5rem; }
+    .problem-list li {
+      position: relative;
+      padding-left: 3.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+    .problem-list li::before {
+      content: "×";
+      position: absolute;
+      left: 0; top: -2px;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      background: #ffe4e6;
+      border-radius: 50%;
+      color: #f43f5e;
+      font-size: 1.4rem;
+      font-weight: 300;
+      box-shadow: 0 4px 10px rgba(244,63,94,0.18);
+    }
+
+    .solution-highlight {
+      margin-top: 3rem;
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      background: var(--bg-alt);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--accent);
+      color: var(--primary);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+    }
+
+    /* ===== SPLIT SECTION ===== */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+    @media (min-width: 768px) {
+      .split-section { grid-template-columns: 1fr 1fr; gap: 4rem; }
+      .split-section.reverse .split-content { order: 2; }
+      .split-section.reverse .iphone-mockup  { order: 1; margin: 0 auto 0 0; }
+    }
+
+    .split-content h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); margin-bottom: 1rem; }
+
+    ul.check-list { margin-top: 2rem; }
+    ul.check-list li {
+      position: relative;
+      padding-left: 3.25rem;
+      margin-bottom: 1.25rem;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+    }
+    ul.check-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0; top: 1px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--primary-light));
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(124,58,237,0.28);
+    }
+
+    /* ===== WEBSITE OFFER ===== */
+    .website-offer {
+      background: linear-gradient(135deg, var(--primary-light), #a855f7);
+      color: white;
+      border-radius: var(--radius-md);
+      padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(139,92,246,0.25);
+    }
+    .website-offer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--primary-light));
+    }
+    .website-offer h2 {
+      color: white;
+      margin-bottom: 1.75rem;
+      font-size: clamp(1.6rem, 4vw, 3rem);
+    }
+    .website-offer p {
+      color: #e5e7eb;
+      max-width: 750px;
+      margin: 0 auto 2rem;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+    .website-examples-intro {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--accent-light);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .website-examples-list {
+      margin-bottom: 3rem;
+      color: #e5e7eb;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+    }
+    .website-examples-list a {
+      color: var(--accent-light);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      transition: color 0.3s;
+    }
+    .website-examples-list a:hover { color: white; }
+
+    /* ===== FAQ ===== */
+    .faq-container { max-width: 920px; margin: 0 auto; }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .faq-item:hover { border-color: rgba(217,141,131,0.4); box-shadow: var(--shadow-soft); }
+    .faq-item.active { border-color: var(--accent); }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.75rem);
+      background: none;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: color 0.3s;
+    }
+    .faq-question::after {
+      content: "+";
+      font-size: 2rem;
+      color: var(--text-muted);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: sans-serif;
+      font-weight: 300;
+      flex-shrink: 0;
+    }
+    .faq-item.active .faq-question { color: var(--accent-hover); }
+    .faq-item.active .faq-question::after { transform: rotate(45deg); color: var(--accent-hover); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-answer p {
+      padding: 0 clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 3vw, 2rem);
+      margin: 0;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      padding: clamp(5rem, 10vw, 10rem) 0;
+      background: radial-gradient(circle at center, rgba(217,141,131,0.1) 0%, transparent 60%);
+    }
+    .final-cta h2 { font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 1.5rem; }
+    .final-cta p  { font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-muted); margin-bottom: 3rem; }
+
+    .cta-btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--surface);
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    footer a {
+      color: var(--primary-light);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: color 0.3s;
+    }
+    footer a:hover { color: var(--primary); }
+
+    /* ===== MOBILE TOUCH-FRIENDLINESS ===== */
+    @media (hover: none) {
+      .feature-card:hover { transform: none; }
+      .tag:hover { transform: none; }
+      .btn-primary:not([disabled]):hover { transform: none; }
+    }
+
+    /* ===== ACCESSIBILITY ===== */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                </div>
-                Appointments & Reports
-            </div>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
         </div>
-    </header>
+        Appointments & Reports
+      </div>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1>Organizează-ți programările într-o aplicație <span class="highlight-text">elegantă</span></h1>
-                <p class="hero-desc">Creată special pentru <strong class="dynamic-text">saloanele de beauty</strong>. Preia controlul afacerii tale: de la calendar și clienți, până la profit real.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1>Organizează-ți programările într-o aplicație <span class="highlight-text">elegantă</span></h1>
+        <p class="hero-desc">Creată special pentru <strong class="dynamic-text">saloanele de beauty</strong>. Preia controlul afacerii tale: de la calendar și clienți, până la profit real.</p>
 
-                <div class="hero-questions">
-                    <p class="hero-questions-intro">Știi exact cum stai cu afacerea ta, în cifre?</p>
-                    <ul>
-                        <li>Știi cât de profitabil ai fost luna asta?</li>
-                        <li>Știi câte anulări și no-show-uri ai avut până acum?</li>
-                        <li>Știi câți bani ai pierdut din programări ratate?</li>
-                    </ul>
-                    <p class="hero-questions-note">Cu Appointments &amp; Reports ai toate aceste răspunsuri în câteva
-                        secunde.</p>
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn btn-primary" disabled>
-                        <svg viewBox="0 0 384 512" width="16" height="16">
-                            <path
-                                d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-                        </svg>
-                        În curând pe iPhone
-                    </button>
-                    <div class="badge">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-                            stroke-width="2" style="margin-right: 6px;">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        Descarcă pentru Android
-                    </div>
-                </div>
-
-                <p class="device-availability">Funcționează pe <strong>Android</strong> (disponibilă acum) și pe <strong>iPhone, iPad și Mac</strong> (versiunea iOS este în lucru).</p>
-            </div>
-
-            <div class="iphone-mockup">
-                <div class="screen">
-                    <img src="assets/approintments.jpeg" alt="Screenshot aplicație - Calendar programări"
-                        class="iphone-screenshot">
-                </div>
-            </div>
+        <div class="hero-questions">
+          <p class="hero-questions-intro">Știi exact cum stai cu afacerea ta, în cifre?</p>
+          <ul>
+            <li>Știi cât de profitabil ai fost luna asta?</li>
+            <li>Știi câte anulări și no-show-uri ai avut până acum?</li>
+            <li>Știi câți bani ai pierdut din programări ratate?</li>
+          </ul>
+          <p class="hero-questions-note">Cu Appointments &amp; Reports ai toate aceste răspunsuri în câteva secunde.</p>
         </div>
-    </section>
 
-    <!-- Funcționalități / Cum te ajută -->
-    <section class="section-padding bg-alt">
-        <div class="container">
-            <h2 class="section-title">Cum te ajută aplicația zi de zi</h2>
-            <p class="section-subtitle">Tot ce ai nevoie, structurat intuitiv și ușor de accesat chiar și când ești cu
-                un client. Te conectezi rapid în aplicație prin <strong>login with Google</strong>, fără parole de ținut minte.</p>
-
-            <div class="features-questions">
-                <p class="features-questions-intro">La ce te mai ajută concret Appointments &amp; Reports?</p>
-                <ul>
-                    <li>Mesaje de confirmare și reminder gata pregătite, ușor de personalizat și trimis prin SMS sau
-                        WhatsApp.</li>
-                    <li>Reminder automat când este ziua clientului, ca să îi poți trimite un mesaj personal.</li>
-                    <li>Concedii și zile libere (CO) setate clar, ca să nu mai programezi din greșeală clienți în zilele
-                        în care nu lucrezi.</li>
-                    <li>Remindere clare în aplicație pentru programările de azi și de mâine.</li>
-                    <li>Intervale de tip „time-off” pe care le blochezi rapid, ca să ai timp pentru ce ai tu nevoie.
-                    </li>
-                    <li>Linkurile tale de social media trimise clienților cu un singur tap.</li>
-                    <li>Lista ta de prețuri partajată instant, fără să mai cauți prin notițe sau poze vechi.</li>
-                </ul>
-            </div>
-
-            <div class="features-grid">
-                <!-- Feature 1: Calendar Management -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                    </div>
-                    <h3>Calendar Inteligent</h3>
-                    <p>Detectează automat suprapunerile și sugerează intervale libere optime. Setează concedii sau zile libere recurente, iar calendarul va bloca automat noile programări.</p>
-                </div>
-
-                <!-- Feature 2: Client Management -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <h3>Profiluri Clienți & Import</h3>
-                    <p>Importă rapid clienții din agenda telefonului. Aplicația ține evidența zilelor de naștere, istoricului de vizite și identifică „clienții de top” sau cei care nu se prezintă.</p>
-                </div>
-
-                <!-- Feature 3: Financial tracking -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <h3>Control Financiar în Timp Real</h3>
-                    <p>Încasările sunt adăugate automat de la programările finalizate, în timp ce poți nota manual cheltuielile de la salon. La final de zi, știi exact profitul net calculat automat.</p>
-                </div>
-
-                <!-- Feature 4: Communication / Templates -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"></path>
-                        </svg>
-                    </div>
-                    <h3>Mesaje Predefinite Auto-Completate</h3>
-                    <p>Creează template-uri personalizate pentru confirmări pe WhatsApp sau SMS. Datele programării și numele clientului se adaugă magic, scutindu-te de scris repetitiv.</p>
-                </div>
-                
-                <!-- Feature 5: Notifications & Reminders -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                        </svg>
-                    </div>
-                    <h3>Alerte & Reminder Recurente</h3>
-                    <p>Aplicația îți trimite notificări Push pentru programările zilei, urările automate de „La mulți ani” ale clienților sau alte sarcini recurente pe care ți le setezi.</p>
-                </div>
-
-                <!-- Feature 6: Live Activities & Dynamic Island -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                        </svg>
-                    </div>
-                    <h3>Live Activities & Dynamic Island</h3>
-                    <p>Vezi mereu timpul rămas sau următoarea programare direct pe ecranul blocat sau în Dynamic Island. O experiență de top, mereu la vedere fără a deschide aplicația.</p>
-                </div>
-            </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" disabled>
+            <svg viewBox="0 0 384 512" width="16" height="16" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            În curând pe iPhone
+          </button>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Descarcă pentru Android
+          </div>
         </div>
-    </section>
 
+        <p class="device-availability">Funcționează pe <strong>Android</strong> (disponibilă acum) și pe <strong>iPhone, iPad și Mac</strong> (în lucru).</p>
+      </div>
 
-    <!-- Secțiune dispozitive Apple -->
-    <section class="section-padding bg-surface devices-section">
-        <div class="container devices-grid">
-            <div class="devices-text">
-                <h2 class="section-title">Android disponibilă acum. Versiunea pentru iPhone, iPad și Mac este în lucru.</h2>
-                <p class="section-subtitle">Aplicația funcționează deja pe dispozitivele tale cu Android, iar varianta pentru ecosistemul Apple (iPhone, iPad și Mac) este în dezvoltare.</p>
-                <ul class="check-list">
-                    <li>Folosești acum aplicația pe telefonul tău Android, cu toate funcționalitățile disponibile.</li>
-                    <li>Backup și sincronizare în cloud, astfel încât să ai programările și rapoartele oriunde.</li>
-                    <li>Lucrăm la experiența nativă pentru iPhone, iPad și Mac, ca să poți continua totul pe dispozitivele tale Apple.</li>
-                </ul>
-            </div>
-            <div class="devices-mockup">
-                <div class="tablet-mockup">
-                    <div class="tablet-screen">
-                        <img src="assets/tablet&amp;mac.png" alt="Aplicația pe iPad și Mac" class="tablet-screenshot">
-                    </div>
-                </div>
-            </div>
+      <div class="iphone-mockup">
+        <div class="screen">
+          <img src="assets/approintments.jpeg" alt="Screenshot aplicație - Calendar programări" class="iphone-screenshot">
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
+  <!-- FUNCȚIONALITĂȚI -->
+  <section class="section-padding bg-alt">
+    <div class="container">
+      <h2 class="section-title">Cum te ajută aplicația zi de zi</h2>
+      <p class="section-subtitle">Tot ce ai nevoie, structurat intuitiv și ușor de accesat chiar și când ești cu un client. Te conectezi rapid prin <strong>login with Google</strong>, fără parole de ținut minte.</p>
 
-    <!-- Pentru cine este -->
-    <section class="section-padding bg-light">
-        <div class="container">
-            <h2 class="section-title">Pentru cine este aplicația?</h2>
-            <p class="section-subtitle">Perfectă pentru freelanceri și antreprenorii mici care fac totul singuri și au
-                nevoie de claritate, fără complicații inutile.</p>
+      <div class="features-questions reveal">
+        <p class="features-questions-intro">La ce te mai ajută concret?</p>
+        <ul>
+          <li>Mesaje de confirmare și reminder gata pregătite, ușor de personalizat și trimis prin SMS sau WhatsApp.</li>
+          <li>Reminder automat când este ziua clientului, ca să îi poți trimite un mesaj personal.</li>
+          <li>Concedii și zile libere setate clar, ca să nu mai programezi din greșeală clienți în zilele libere.</li>
+          <li>Remindere clare în aplicație pentru programările de azi și de mâine.</li>
+          <li>Intervale de tip „time-off" pe care le blochezi rapid.</li>
+          <li>Linkurile tale de social media trimise clienților cu un singur tap.</li>
+          <li>Lista ta de prețuri partajată instant, fără să mai cauți prin notițe.</li>
+        </ul>
+      </div>
 
-            <div class="tags-container">
-                <span class="tag">Salon de înfrumusețare</span>
-                <span class="tag">Coafor & Frizerie</span>
-                <span class="tag">Manichiură & Pedichiură</span>
-                <span class="tag">Masaj & Terapii</span>
-                <span class="tag">Barber Shop</span>
-            </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <h3>Calendar Inteligent</h3>
+          <p>Detectează automat suprapunerile și sugerează intervale libere optime. Setează concedii recurente și calendarul blochează automat noile programări.</p>
         </div>
-    </section>
 
-    <!-- Problema pe care o rezolvă -->
-    <section class="section-padding bg-surface">
-        <div class="container">
-            <div class="problem-card">
-                <h2>Simți uneori că pierzi controlul afacerii tale?</h2>
-                <ul class="problem-list">
-                    <li>Ai programările scrise haotic într-o agendă de hârtie sau rătăcite prin mesaje.</li>
-                    <li>Ai clienți care uită de programare (no-show) și îți blochează timpul.</li>
-                    <li>La final de lună e greu să vezi câți bani reali ai făcut și pe ce s-au dus cheltuielile.</li>
-                    <li>Nu ai claritate despre cine sunt clienții tăi fideli și cine anulează mereu în ultimul moment.
-                    </li>
-                </ul>
-                <div class="solution-highlight">
-                    Appointments & Reports adună toate aceste informații într-un singur loc. Ai agenda și contabilitatea
-                    salonului în propriul buzunar.
-                </div>
-            </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3>Profiluri Clienți & Import</h3>
+          <p>Importă rapid clienții din agendă. Aplicația ține evidența zilelor de naștere, istoricului de vizite și identifică clienții de top sau cei cu no-show.</p>
         </div>
-    </section>
 
-    <!-- Reports & Security -->
-    <section class="section-padding bg-surface">
-        <div class="container">
-
-            <!-- Split: Rapoarte -->
-            <div class="split-section">
-                <div class="split-content">
-                    <h2 style="margin-bottom: 1rem; font-size: 2rem;">Rapoarte vizuale pentru decizii mai bune</h2>
-                    <p>Aplicația nu e doar o agendă digitală, ci funcționează ca un <strong>mic contabil vizual</strong>
-                        pentru business-ul tău.</p>
-                    <ul class="check-list">
-                        <li>Vezi pe luni și ani: câți bani au intrat (estimat vs realizat), ce ai cheltuit și care este
-                            profitul curat.</li>
-                        <li>Monitorizează câte minute și zile ai lucrat efectiv.</li>
-                        <li>Identifică din rapoarte clienții de top care îți aduc cea mai mare valoare.</li>
-                        <li>Află rapid câți clienți au anulat sau nu s-au prezentat și câți bani ai pierdut din această
-                            cauză.</li>
-                    </ul>
-                </div>
-                <div class="iphone-mockup iphone-mockup-report">
-                    <div class="screen">
-                        <img src="assets/report.jpeg" alt="Screenshot aplicație - Rapoarte financiare lunare"
-                            class="iphone-screenshot">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Split: Siguranță -->
-            <div class="split-section reverse">
-                <div class="split-content">
-                    <h2 style="margin-bottom: 1rem; font-size: 2rem;">Siguranță absolută și control pe datele tale</h2>
-                    <p>Înțelegem cât de sensibile sunt datele din agenda și portofoliul tău de clienți. Totul este
-                        conceput pentru a-ți oferi liniște deplină.</p>
-                    <ul class="check-list">
-                        <li><strong>Protecție Face ID / Biometrică:</strong> Aplicația se blochează instant la ieșirea în fundal și protejează datele și rapoartele de ochii curioșilor.</li>
-                        <li><strong>Cloud Sync & Backup JSON:</strong> Datele se sincronizează pe un cont sigur în Cloud (Firebase), putând fi accesate oriunde. Ai export total în fișier JSON pentru controlul absolut al datelor tale.</li>
-                        <li><strong>Internațională & Adaptabilă:</strong> Schimbi la orice oră limba aplicației curat și fără restart (disponibilă în 6 limbi) și poți alege din 7 monede internaționale (RON, EUR, GBP, USD etc.).</li>
-                    </ul>
-                </div>
-                <div class="iphone-mockup iphone-mockup-settings">
-                    <div class="screen">
-                        <img src="assets/settings.jpeg" alt="Screenshot aplicație - Setări și Face ID"
-                            class="iphone-screenshot">
-                    </div>
-                </div>
-            </div>
-
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <h3>Control Financiar în Timp Real</h3>
+          <p>Încasările sunt adăugate automat de la programările finalizate. La final de zi, știi exact profitul net calculat automat.</p>
         </div>
-    </section>
 
-    <!-- Website Offer -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="website-offer">
-                <h2>Nu ai încă un website pentru afacerea ta? Te ajut eu!</h2>
-                <p>Aplicația rezolvă organizarea internă, dar pe lângă asta, te pot ajuta să îți construiești și o
-                    <strong>pagină web simplă, de prezentare</strong>. Un spațiu online cu programul tău, serviciile,
-                    poze de la fața locului, link-uri spre Instagram/Facebook și butoane rapide de contact.
-                </p>
-                <p style="margin-bottom: 1rem; font-size: 1rem; font-weight: 500;">O prezență modernă, curată, care să
-                    îi convingă pe clienți chiar înainte să îți treacă pragul.</p>
-
-                <p class="website-examples-intro">Câteva exemple de site-uri pe care le-am realizat:</p>
-                <ul class="website-examples-list">
-                    <li><a href="https://www.silviaskinstudio.co.uk" target="_blank" rel="noopener noreferrer">Silvia
-                            Skin Studio</a> – skincare &amp; masaj, UK</li>
-                    <li><a href="https://popasuldrumetuluibucovina.ro" target="_blank" rel="noopener noreferrer">Popasul
-                            Drumețului</a> – restaurant tradițional, Bucovina</li>
-                </ul>
-
-                <a href="mailto:c_mihail@icloud.com" class="btn btn-secondary">
-                    Scrie-mi și vedem împreună ce ai nevoie
-                </a>
-            </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"></path></svg>
+          </div>
+          <h3>Mesaje Predefinite Auto-Completate</h3>
+          <p>Template-uri personalizate pentru confirmări pe WhatsApp sau SMS. Datele programării și numele clientului se adaugă automat.</p>
         </div>
-    </section>
 
-    <!-- FAQ -->
-    <section class="section-padding bg-alt">
-        <div class="container">
-            <h2 class="section-title">Întrebări frecvente</h2>
-            <p class="section-subtitle" style="margin-bottom: 3rem;">Află mai multe detalii despre cum funcționează
-                Appointments & Reports.</p>
-
-            <div class="faq-container">
-
-                <div class="faq-item">
-                    <button class="faq-question">De pe ce dispozitive pot folosi aplicația?</button>
-                    <div class="faq-answer">
-                        <p>În acest moment, aplicația este disponibilă pe dispozitive cu <strong>Android</strong>. Lucrăm la versiunea pentru
-                            <strong>iPhone, iPad și Mac</strong>, care va fi lansată în perioada următoare.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">Am nevoie de internet permanent?</button>
-                    <div class="faq-answer">
-                        <p>Nu. Appointments & Reports este o aplicație nativă, ceea ce înseamnă că toate datele sunt
-                            stocate local, direct pe dispozitivul tău. Poți vizualiza, adăuga sau modifica programări și
-                            rapoarte chiar și fără conexiune la internet.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">Pentru ce tip de business este potrivită aplicația?</button>
-                    <div class="faq-answer">
-                        <p>Este gândită special pentru orice afacere care funcționează strict pe bază de programări cu
-                            durata bine definită: saloane de beauty (coafor, frizerie, manichiură), cabinete de masaj
-                            sau terapie, make-up artiști și barber shop-uri.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">Pot să export datele mele?</button>
-                    <div class="faq-answer">
-                        <p>Da, desigur! Din meniul aplicației poți face oricând un export complet al tuturor datelor
-                            tale sub formă de fișier JSON. De asemenea, poți folosi funcția de import dacă îți schimbi
-                            telefonul.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">Pot să țin evidența mai multor saloane simultan?</button>
-                    <div class="faq-answer">
-                        <p>Structura actuală a rapoartelor financiare și a calendarului este orientată și optimizată
-                            pentru gestionarea unui singur salon sau a unui singur business de tip freelancer, pentru a
-                            păstra totul cât mai simplu și clar posibil.</p>
-                    </div>
-                </div>
-
-            </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </div>
+          <h3>Alerte & Reminder Recurente</h3>
+          <p>Notificări Push pentru programările zilei, urările automate de „La mulți ani" ale clienților și alte sarcini recurente pe care ți le setezi.</p>
         </div>
-    </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>Mai puțin haos în programări și bani.<br>Mai multă claritate.</h2>
-            <p>Descarcă Appointments & Reports și fă-ți viața mai ușoară la salon.</p>
-
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                <button class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.125rem;" disabled>
-                    <svg viewBox="0 0 384 512" width="20" height="20">
-                        <path
-                            d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-                    </svg>
-                    În curând pe iPhone
-                </button>
-                <div class="badge"
-                    style="background: transparent; border: none; font-size: 0.9rem; color: var(--text-muted);">
-                    Android – lansată
-                </div>
-            </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h3>Live Activities & Dynamic Island</h3>
+          <p>Timpul rămas sau următoarea programare direct pe ecranul blocat sau în Dynamic Island. O experiență de top, fără a deschide aplicația.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>
-                &copy; 2026 Appointments & Reports. Toate drepturile rezervate.
-                &nbsp;|&nbsp;
-                <a href="privacy-policy-android.html">Privacy Policy – Android</a>
-            </p>
+  <!-- DISPOZITIVE APPLE -->
+  <section class="section-padding devices-section">
+    <div class="container devices-grid">
+      <div class="devices-text reveal">
+        <h2 class="section-title" style="text-align:left;">Android disponibilă acum. iPhone, iPad și Mac — în lucru.</h2>
+        <p class="section-subtitle" style="text-align:left; margin: 0 0 2rem;">Aplicația funcționează deja pe Android, iar varianta pentru ecosistemul Apple este în dezvoltare.</p>
+        <ul class="check-list">
+          <li>Folosești aplicația pe telefonul tău Android, cu toate funcționalitățile disponibile.</li>
+          <li>Backup și sincronizare în cloud, astfel încât să ai programările oriunde.</li>
+          <li>Lucrăm la experiența nativă pentru iPhone, iPad și Mac.</li>
+        </ul>
+      </div>
+      <div class="tablet-mockup reveal">
+        <div class="tablet-screen">
+          <img src="assets/tablet&mac.png" alt="Aplicația pe iPad și Mac" class="tablet-screenshot">
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- Script pentru FAQ (Accordion) -->
-    <script src="script.js"></script>
+  <!-- PENTRU CINE ESTE -->
+  <section class="section-padding bg-light">
+    <div class="container">
+      <h2 class="section-title">Pentru cine este aplicația?</h2>
+      <p class="section-subtitle">Perfectă pentru freelanceri și antreprenorii mici care fac totul singuri și au nevoie de claritate, fără complicații inutile.</p>
+      <div class="tags-container">
+        <span class="tag">Salon de înfrumusețare</span>
+        <span class="tag">Coafor & Frizerie</span>
+        <span class="tag">Manichiură & Pedichiură</span>
+        <span class="tag">Masaj & Terapii</span>
+        <span class="tag">Barber Shop</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="section-padding bg-surface">
+    <div class="container">
+      <div class="problem-card reveal">
+        <h2>Simți uneori că pierzi controlul afacerii tale?</h2>
+        <ul class="problem-list">
+          <li>Ai programările scrise haotic într-o agendă de hârtie sau rătăcite prin mesaje.</li>
+          <li>Ai clienți care uită de programare (no-show) și îți blochează timpul.</li>
+          <li>La final de lună e greu să vezi câți bani reali ai făcut și pe ce s-au dus cheltuielile.</li>
+          <li>Nu ai claritate despre cine sunt clienții tăi fideli și cine anulează mereu în ultimul moment.</li>
+        </ul>
+        <div class="solution-highlight">
+          Appointments &amp; Reports adună toate aceste informații într-un singur loc. Ai agenda și contabilitatea salonului în propriul buzunar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAPOARTE & SECURITATE -->
+  <section class="section-padding bg-surface">
+    <div class="container">
+
+      <div class="split-section">
+        <div class="split-content reveal">
+          <h2>Rapoarte vizuale pentru decizii mai bune</h2>
+          <p>Aplicația nu e doar o agendă digitală, ci funcționează ca un <strong>mic contabil vizual</strong> pentru business-ul tău.</p>
+          <ul class="check-list">
+            <li>Vezi pe luni și ani: câți bani au intrat, ce ai cheltuit și care este profitul curat.</li>
+            <li>Monitorizează câte minute și zile ai lucrat efectiv.</li>
+            <li>Identifică clienții de top care îți aduc cea mai mare valoare.</li>
+            <li>Află rapid câți clienți au anulat sau nu s-au prezentat și câți bani ai pierdut.</li>
+          </ul>
+        </div>
+        <div class="iphone-mockup iphone-mockup-report reveal">
+          <div class="screen">
+            <img src="assets/report.jpeg" alt="Screenshot aplicație - Rapoarte financiare lunare" class="iphone-screenshot">
+          </div>
+        </div>
+      </div>
+
+      <div class="split-section reverse">
+        <div class="split-content reveal">
+          <h2>Siguranță absolută și control pe datele tale</h2>
+          <p>Înțelegem cât de sensibile sunt datele din agenda și portofoliul tău de clienți.</p>
+          <ul class="check-list">
+            <li><strong>Protecție Face ID / Biometrică:</strong> Aplicația se blochează instant la ieșirea în fundal.</li>
+            <li><strong>Cloud Sync & Backup JSON:</strong> Date sincronizate pe un cont sigur în Cloud (Firebase) cu export total în fișier JSON.</li>
+            <li><strong>Internațională & Adaptabilă:</strong> 6 limbi și 7 monede internaționale (RON, EUR, GBP, USD etc.).</li>
+          </ul>
+        </div>
+        <div class="iphone-mockup iphone-mockup-settings reveal">
+          <div class="screen">
+            <img src="assets/settings.jpeg" alt="Screenshot aplicație - Setări și Face ID" class="iphone-screenshot">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEBSITE OFFER -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="website-offer reveal">
+        <h2>Nu ai încă un website pentru afacerea ta? Te ajut eu!</h2>
+        <p>Aplicația rezolvă organizarea internă, dar pe lângă asta, te pot ajuta să îți construiești și o <strong>pagină web simplă, de prezentare</strong>. Un spațiu online cu programul tău, serviciile, poze de la fața locului și butoane rapide de contact.</p>
+        <p style="margin-bottom: 1.5rem; font-size: 1.05rem; font-weight: 500; color: #e5e7eb;">O prezență modernă, curată, care să îi convingă pe clienți chiar înainte să îți treacă pragul.</p>
+
+        <p class="website-examples-intro">Câteva exemple de site-uri realizate:</p>
+        <ul class="website-examples-list">
+          <li><a href="https://www.silviaskinstudio.co.uk" target="_blank" rel="noopener noreferrer">Silvia Skin Studio</a> – skincare &amp; masaj, UK</li>
+          <li><a href="https://popasuldrumetuluibucovina.ro" target="_blank" rel="noopener noreferrer">Popasul Drumețului</a> – restaurant tradițional, Bucovina</li>
+        </ul>
+
+        <a href="mailto:c_mihail@icloud.com" class="btn btn-secondary">
+          Scrie-mi și vedem împreună ce ai nevoie
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-padding bg-alt">
+    <div class="container">
+      <h2 class="section-title">Întrebări frecvente</h2>
+      <p class="section-subtitle" style="margin-bottom: 3rem;">Află mai multe detalii despre cum funcționează Appointments &amp; Reports.</p>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">De pe ce dispozitive pot folosi aplicația?</button>
+          <div class="faq-answer">
+            <p>În acest moment, aplicația este disponibilă pe dispozitive cu <strong>Android</strong>. Lucrăm la versiunea pentru <strong>iPhone, iPad și Mac</strong>, care va fi lansată în perioada următoare.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Am nevoie de internet permanent?</button>
+          <div class="faq-answer">
+            <p>Nu. Appointments &amp; Reports este o aplicație nativă — toate datele sunt stocate local, direct pe dispozitivul tău. Poți vizualiza, adăuga sau modifica programări și rapoarte chiar și fără conexiune la internet.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Pentru ce tip de business este potrivită aplicația?</button>
+          <div class="faq-answer">
+            <p>Este gândită special pentru orice afacere care funcționează pe bază de programări cu durată bine definită: saloane de beauty, cabinete de masaj sau terapie, make-up artiști și barber shop-uri.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Pot să export datele mele?</button>
+          <div class="faq-answer">
+            <p>Da! Din meniul aplicației poți face oricând un export complet al tuturor datelor tale sub formă de fișier JSON. De asemenea, poți folosi funcția de import dacă îți schimbi telefonul.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Pot să țin evidența mai multor saloane simultan?</button>
+          <div class="faq-answer">
+            <p>Structura actuală este orientată și optimizată pentru gestionarea unui singur salon sau a unui singur business de tip freelancer, pentru a păstra totul cât mai simplu și clar posibil.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Mai puțin haos în programări și bani.<br>Mai multă claritate.</h2>
+      <p>Descarcă Appointments &amp; Reports și fă-ți viața mai ușoară la salon.</p>
+      <div class="cta-btn-group">
+        <button class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;" disabled>
+          <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          În curând pe iPhone
+        </button>
+        <span style="font-size: 0.9rem; color: var(--text-muted);">Android – lansată</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>
+        &copy; 2026 Appointments &amp; Reports. Toate drepturile rezervate.
+        &nbsp;|&nbsp;
+        <a href="privacy-policy-android.html">Privacy Policy – Android</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== FAQ Accordion ===== */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isActive = item.classList.contains('active');
+
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* ===== Scroll Reveal ===== */
+    const revealEls = document.querySelectorAll(
+      '.feature-card, .problem-card, .split-content, .iphone-mockup, .section-title, .section-subtitle, .devices-text, .tablet-mockup, .website-offer, .features-questions'
+    );
+    revealEls.forEach(el => el.classList.add('reveal'));
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('reveal-active');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ===== Typewriter ===== */
+    const dt = document.querySelector('.dynamic-text');
+    if (dt) {
+      const words = ['saloanele de beauty', 'cabinetele de masaj', 'make-up artiști', 'frizerii / barber shop', 'terapeuți'];
+      let wi = 0, ci = 0, deleting = false;
+      function type() {
+        const word = words[wi];
+        dt.textContent = word.substring(0, ci);
+        let speed = deleting ? 40 : 100;
+        if (!deleting && ci === word.length) { speed = 2000; deleting = true; }
+        else if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; speed = 400; }
+        ci += deleting ? -1 : 1;
+        setTimeout(type, speed);
+      }
+      setTimeout(type, 1000);
+    }
+
+    /* ===== 3D Tilt — only on desktop (pointer: fine) ===== */
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left, y = e.clientY - r.top;
+          const cx = r.width / 2, cy = r.height / 2;
+          const tx = ((y - cy) / cy) * -4;
+          const ty = ((x - cx) / cx) * 4;
+          card.style.transform = `perspective(1000px) rotateX(${tx}deg) rotateY(${ty}deg) translateY(-8px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+    }
+  </script>
 </body>
-
 </html>
