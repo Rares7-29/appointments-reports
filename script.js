@@ -106,10 +106,6 @@ cards.forEach(card => {
 // Floating parallax for images/mockups
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
-    document.querySelectorAll('.iphone-mockup').forEach(mockup => {
-        const rate = scrolled * 0.05;
-        mockup.style.transform = `translateY(${rate}px)`;
-    });
     
     // Gradient Background parallax in hero
     const hero = document.querySelector('.hero');
